@@ -43,7 +43,7 @@ app.use("/api/stripe",stripe);
 app.use("/api/membership",membership);
 app.use('/api/contact', contactRoutes);
 
-app.get("/test", (req, res) => {
+app.get("/", (req, res) => {
     res.status(200).json({ success: true, message: "Backend is running successfully!" });
 });
 
