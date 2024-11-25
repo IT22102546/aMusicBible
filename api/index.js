@@ -11,8 +11,6 @@ import stripe from "./routes/stripe.route.js";
 import membership from "./routes/membership.route.js";
 import contactRoutes from "./routes/contact.route.js";
 
-
-
 dotenv.config();
 
 mongoose.connect(process.env.MONGO).then(()=>{
@@ -20,9 +18,6 @@ mongoose.connect(process.env.MONGO).then(()=>{
 }).catch((err)=>{
     console.log(err);
 });
-
-
-
 
 const app = express();
 
@@ -48,7 +43,9 @@ app.use("/api/stripe",stripe);
 app.use("/api/membership",membership);
 app.use('/api/contact', contactRoutes);
 
-
+app.get("/test", (req, res) => {
+    res.status(200).json({ success: true, message: "Backend is running successfully!" });
+});
 
 app.use((err,req,res,next)=>{
     const statusCode = err.statusCode || 500;
