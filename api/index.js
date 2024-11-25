@@ -10,7 +10,7 @@ import categoryRoute from "./routes/category.route.js";
 import stripe from "./routes/stripe.route.js";
 import membership from "./routes/membership.route.js";
 import contactRoutes from "./routes/contact.route.js";
-import path from 'path'
+
 
 
 dotenv.config();
@@ -21,7 +21,7 @@ mongoose.connect(process.env.MONGO).then(()=>{
     console.log(err);
 });
 
-const __dirname = path.resolve();
+
 
 
 const app = express();
@@ -34,8 +34,10 @@ app.listen(3000,()=>{
 });
 
 const corsOptions = {
-    origin: 'http://localhost:5173',
+    origin: 'https://amusicbible.com',
+    credentials: true, 
 };
+app.use(cors(corsOptions));
 app.use(cors(corsOptions));
 
 app.use("/api/auth",authRoute);
@@ -46,10 +48,7 @@ app.use("/api/stripe",stripe);
 app.use("/api/membership",membership);
 app.use('/api/contact', contactRoutes);
 
-app.use(express.static(path.join(__dirname,"Frontend/dist")));
-app.get('*',(req,res)=>{
-    res.sendFile(path.join(__dirname,'Frontend' , 'dist' , 'index.html'));
-})
+
 
 app.use((err,req,res,next)=>{
     const statusCode = err.statusCode || 500;
