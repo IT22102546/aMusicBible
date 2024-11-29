@@ -78,12 +78,14 @@ export const signin = async (req, res, next) => {
   }
 };
 
+
   export const google = async (req, res, next) => {
     try {
      
       const user = await User.findOne({ email: req.body.email });
   
       if (user) {
+        
         const token = jwt.sign(
           { id: user._id, isAdmin: user.isAdmin },
           process.env.JWT_SECRET,
@@ -99,10 +101,10 @@ export const signin = async (req, res, next) => {
           httpOnly: true,
           secure: process.env.NODE_ENV === 'production',
           sameSite: 'Strict', 
-          expires: new Date(Date.now() + 3600000), 
+          expires: new Date(Date.now() + 3600000),
         }).status(200).json(rest);
       } else {
-      
+   
         const generatedPassword = Math.random().toString(36).slice(-8) + Math.random().toString(36).slice(-8);
         const hashedPassword = bcryptjs.hashSync(generatedPassword, 10);
         
@@ -120,7 +122,7 @@ export const signin = async (req, res, next) => {
         const token = jwt.sign(
           { id: newUser._id, isAdmin: newUser.isAdmin },
           process.env.JWT_SECRET,
-          { expiresIn: '1h' } 
+          { expiresIn: '1h' }
         );
         console.log(token);
   
@@ -131,7 +133,7 @@ export const signin = async (req, res, next) => {
         res.cookie('access_token', token, {
           httpOnly: true,
           secure: process.env.NODE_ENV === 'production',
-          sameSite: 'Strict',
+          sameSite: 'Strict', 
           expires: new Date(Date.now() + 3600000), 
         }).status(200).json(rest);
       }
@@ -139,4 +141,5 @@ export const signin = async (req, res, next) => {
       next(error);
     }
   };
+  
   
