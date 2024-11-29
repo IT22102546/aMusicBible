@@ -6,7 +6,6 @@ import mongoose from 'mongoose';
 export const createMusic = async (req, res, next) => {
     try {
      
-  
       const { title, description, category, music} = req.body;
   
       console.log(description);
@@ -25,7 +24,6 @@ export const createMusic = async (req, res, next) => {
         category: category || 'uncategorized',
         slug,
         music,
-        userId: req.user.id,
         image: req.body.image || 'https://i0.wp.com/woodwoon.com/wp-content/uploads/2023/01/SOS0002-sofa-set-sofa-design-furniture-store-in-pakistan.webp?fit=1024%2C787&ssl=1'
       });
   
