@@ -184,7 +184,7 @@ export const forgetpassword = async (req, res, next) => {
       from: "sanjana.nim2001@gmail.com",
       to: email,
       subject: "Password Reset",
-      text: `Use the following link to reset your password: https://florashop.onrender.com/resetpassword/${user._id}/${token}`
+      text: `Use the following link to reset your password: https://amusicbible.com/resetpassword/${user._id}`
     };
 
     transporter.sendMail(mailOptions, (error, info) => {
@@ -202,15 +202,12 @@ export const forgetpassword = async (req, res, next) => {
 };
 
 export const resetpassword = async (req, res, next) => {
-  const { id, token } = req.params;
+  const { id } = req.params;
 
   try {
-    const validuser = await User.findOne({_id: id, verifytoken: token});
+    const validuser = await User.findOne({_id: id});
    
-    const verifyToken = jwt.verify(token, process.env.JWT_SECRET);
-
-
-    if (validuser && verifyToken.id) {
+    if (validuser) {
       res.status(201).json({ status: 201, validuser });
     } else {
       res.status(401).json({ status: 401, message: "User does not exist" });
@@ -226,10 +223,10 @@ export const updateResetPassword = async (req, res, next) => {
   const { password } = req.body;
 
   try {
-      const validuser = await User.findOne({ _id: id, verifytoken: token });
-      const verifyToken = jwt.verify(token, process.env.JWT_SECRET);
+      const validuser = await User.findOne({ _id: id});
+      
 
-      if (validuser && verifyToken.id) {
+      if (validuser) {
           const newpassword = await bcryptjs.hash(password, 10);
 
           await User.findByIdAndUpdate(id, { password: newpassword });

@@ -12,7 +12,7 @@ export default function ResetPassword() {
 
     const userValid = async () => {
     try {
-        const res = await fetch(`/api/user/resetpassword/${id}/${token}`, {
+        const res = await fetch(`/api/user/resetpassword/${id}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"
@@ -32,8 +32,7 @@ export default function ResetPassword() {
             console.error("Invalid user or token.");
         }
     } catch (error) {
-        console.error("An error occurred while checking user validity:", error);
-        setError("An error occurred while checking user validity. Please try again later.");
+        
     }
 };
 
@@ -56,7 +55,7 @@ export default function ResetPassword() {
         }
 
         try {
-            const res = await fetch(`/api/user/updateResetPassword/${id}/${token}`, {
+            const res = await fetch(`/api/user/updateResetPassword/${id}`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

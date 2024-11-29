@@ -14,8 +14,8 @@ router.get('/getadmins', getAdmins);
 router.get('/getcustomers', getCustomers);
 router.get('/getusers',getUsers);
 router.post('/forgetpassword',forgetpassword);
-router.get('/resetpassword/:id/:token',resetpassword);
-router.post('/updateResetPassword/:id/:token',updateResetPassword);
+router.get('/resetpassword/:id',resetpassword);
+router.post('/updateResetPassword/:id',updateResetPassword);
 router.get('/:userId', getUser);
 
 
