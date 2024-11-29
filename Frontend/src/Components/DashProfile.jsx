@@ -23,7 +23,6 @@ export default function DashProfile() {
   const [showModel , setShowModel] = useState(false);
   const filePickerRef = useRef(null);
   const [showPassword, setShowPassword] = useState(false); 
-  const token = currentUser.token;
  
   const countries = [
     "Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Antigua and Barbuda", 
@@ -121,9 +120,11 @@ export default function DashProfile() {
       const res = await fetch(`/api/user/update/${currentUser._id}`,{
         method: 'PUT',
         headers: {
+         
           'Content-Type':'application/json',
-          'Authorization': `Bearer ${token}`,
+        
         },
+        credentials: "include",
         body:JSON.stringify(formData),
       });
       const data = await res.json();
