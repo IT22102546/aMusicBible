@@ -4,7 +4,7 @@ import 'aos/dist/aos.css';
 
 export default function AboutUs() {
   useEffect(() => {
-    AOS.init({ duration: 1000 }); // Initialize AOS for animations
+    AOS.init({ duration: 1000 }); // Initialize AOS for animations ndhdhd
   }, []);
 
   return (
